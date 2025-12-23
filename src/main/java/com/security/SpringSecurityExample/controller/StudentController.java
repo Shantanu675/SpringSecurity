@@ -21,6 +21,7 @@ public class StudentController {
 
     @GetMapping("/students")
     public List<Student> getListOfStudents(){
+        System.out.println("inside come");
         return students;
     }
 

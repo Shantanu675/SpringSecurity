@@ -32,6 +32,9 @@ public class SecurityConfig {
     @Autowired
     private JwtFilter jwtFilter;
 
+    //=========================================================================================
+    //******************************  Provide Security as per our will  ***********************
+    //=========================================================================================
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
@@ -40,14 +43,15 @@ public class SecurityConfig {
                     .requestMatchers("/register","/login")
                     .permitAll()
                     .anyRequest().authenticated())
-            .httpBasic(Customizer.withDefaults())
+//            .httpBasic(Customizer.withDefaults())
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
             .build();
-        //http.formLogin(Customizer.withDefaults());
-        //return http.build();
     }
 
+    //=========================================================================================
+    //**************  helps to verify authorization of user (at time of LOGIN)  ***************
+    //=========================================================================================
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
